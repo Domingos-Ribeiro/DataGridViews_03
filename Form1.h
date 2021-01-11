@@ -53,6 +53,9 @@ namespace ProjetoCLR {
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column1;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column2;
+	private: System::Windows::Forms::Button^ btnRemoiverMarca;
+	private: System::Windows::Forms::TextBox^ txtExisteCarro;
+
 	protected:
 
 	private:
@@ -70,6 +73,8 @@ namespace ProjetoCLR {
 		{
 			this->btnRemoverViagens = (gcnew System::Windows::Forms::Button());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->Column1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Column2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btnPreencherGrid = (gcnew System::Windows::Forms::Button());
 			this->btnLimparGrid = (gcnew System::Windows::Forms::Button());
 			this->btnInserirViagens = (gcnew System::Windows::Forms::Button());
@@ -80,14 +85,14 @@ namespace ProjetoCLR {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->btnVerificarKilometros = (gcnew System::Windows::Forms::Button());
 			this->label3 = (gcnew System::Windows::Forms::Label());
-			this->Column1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Column2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->btnRemoiverMarca = (gcnew System::Windows::Forms::Button());
+			this->txtExisteCarro = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// btnRemoverViagens
 			// 
-			this->btnRemoverViagens->Location = System::Drawing::Point(30, 402);
+			this->btnRemoverViagens->Location = System::Drawing::Point(32, 435);
 			this->btnRemoverViagens->Name = L"btnRemoverViagens";
 			this->btnRemoverViagens->Size = System::Drawing::Size(140, 23);
 			this->btnRemoverViagens->TabIndex = 0;
@@ -106,6 +111,16 @@ namespace ProjetoCLR {
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->Size = System::Drawing::Size(241, 328);
 			this->dataGridView1->TabIndex = 1;
+			// 
+			// Column1
+			// 
+			this->Column1->HeaderText = L"Marca Carro";
+			this->Column1->Name = L"Column1";
+			// 
+			// Column2
+			// 
+			this->Column2->HeaderText = L"Km";
+			this->Column2->Name = L"Column2";
 			// 
 			// btnPreencherGrid
 			// 
@@ -202,21 +217,31 @@ namespace ProjetoCLR {
 			this->label3->TabIndex = 8;
 			this->label3->Text = L"REGISTO DE VIAGENS";
 			// 
-			// Column1
+			// btnRemoiverMarca
 			// 
-			this->Column1->HeaderText = L"Marca Carro";
-			this->Column1->Name = L"Column1";
+			this->btnRemoiverMarca->Location = System::Drawing::Point(32, 362);
+			this->btnRemoiverMarca->Name = L"btnRemoiverMarca";
+			this->btnRemoiverMarca->Size = System::Drawing::Size(138, 23);
+			this->btnRemoiverMarca->TabIndex = 10;
+			this->btnRemoiverMarca->Text = L"Remove Marca";
+			this->btnRemoiverMarca->UseVisualStyleBackColor = true;
+			this->btnRemoiverMarca->Click += gcnew System::EventHandler(this, &Form1::btnRemoiverMarca_Click);
 			// 
-			// Column2
+			// txtExisteCarro
 			// 
-			this->Column2->HeaderText = L"Km";
-			this->Column2->Name = L"Column2";
+			this->txtExisteCarro->Location = System::Drawing::Point(32, 392);
+			this->txtExisteCarro->Name = L"txtExisteCarro";
+			this->txtExisteCarro->Size = System::Drawing::Size(138, 20);
+			this->txtExisteCarro->TabIndex = 11;
+			this->txtExisteCarro->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(538, 488);
+			this->Controls->Add(this->txtExisteCarro);
+			this->Controls->Add(this->btnRemoiverMarca);
 			this->Controls->Add(this->btnVerificarKilometros);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label3);
@@ -297,5 +322,27 @@ private: System::Void btnVerificarKilometros_Click(System::Object^ sender, Syste
 		
 
 	}
+private: System::Void btnRemoiverMarca_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		//Enquanto for diferente de -1, repete o ciclo, porque existe a mesma marca várias vezes.
+		int posicao;
+		String^ marca = txtExisteCarro->Text;
+
+		do
+		{
+			posicao = ExisteCarro(marca);
+
+		} while (posicao != -1);
+	}
+	   //MÉTODO (Função)
+	   int ExisteCarro(String^ carro)
+	   {
+		   int posicao - 1;
+
+		   for (int i = 0; i < dataGridView1->Rows->Count -1; i++)
+		   {
+			   dataGridView1->Rows->RemoveAt(posicao);
+		   }
+	   }
 };
 }
